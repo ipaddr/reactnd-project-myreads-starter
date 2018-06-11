@@ -5,12 +5,13 @@ import Book from './Book'
 class ListBooks extends Component {
 
     static propTypes = {
-        books: PropTypes.array.isRequired
+        books: PropTypes.array.isRequired,
+        updateBookShelf: PropTypes.func.isRequired
     }
 
     render(){
 
-        const { books } = this.props
+        const { books, updateBookShelf } = this.props
 
         let arrayOfCurrentlyReading=[]
         let arrayOfWantToRead=[]
@@ -33,7 +34,7 @@ class ListBooks extends Component {
                     {arrayOfCurrentlyReading.map(
                       (book, idx) =>
                       <li key={idx}>
-                        <Book book={book}/>
+                        <Book book={book} updateBookShelf={this.props.updateBookShelf}/>
                       </li>
                     )}
                     </ol>
@@ -46,7 +47,7 @@ class ListBooks extends Component {
                       {arrayOfWantToRead.map(
                         (book, idx) =>
                         <li key={idx}>
-                          <Book book={book}/>
+                          <Book book={book} updateBookShelf={this.props.updateBookShelf}/>
                         </li>
                       )}
                     </ol>
@@ -59,7 +60,7 @@ class ListBooks extends Component {
                       {arrayOfRead.map(
                         (book, idx) =>
                         <li key={idx}>
-                          <Book book={book}/>
+                          <Book book={book} updateBookShelf={this.props.updateBookShelf}/>
                         </li>
                       )}
                     </ol>

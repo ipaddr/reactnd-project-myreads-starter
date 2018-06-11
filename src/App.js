@@ -23,6 +23,11 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBookShelf(book, shelf){
+    debugger;
+    BooksAPI.update(book, shelf)
+  }
+
   render() {
 
     return (
@@ -54,7 +59,7 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <ListBooks books={this.state.books}/>
+            <ListBooks books={this.state.books} updateBookShelf={this.updateBookShelf}/>
             <div className="open-search">
               <Link to="/search">Add a book</Link>
             </div>
