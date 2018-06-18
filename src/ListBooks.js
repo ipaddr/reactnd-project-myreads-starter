@@ -4,6 +4,12 @@ import Book from './Book'
 
 class ListBooks extends Component {
 
+    constructor(props) {
+      super(props)
+      this.books = this.props.books
+      this.updateBookShelf = this.props.updateBookShelf.bind(this)
+    }
+
     static propTypes = {
         books: PropTypes.array.isRequired,
         updateBookShelf: PropTypes.func.isRequired
@@ -16,6 +22,8 @@ class ListBooks extends Component {
         let arrayOfCurrentlyReading=[]
         let arrayOfWantToRead=[]
         let arrayOfRead=[]
+
+        debugger
 
         books.map(
           (book) =>
@@ -34,7 +42,7 @@ class ListBooks extends Component {
                     {arrayOfCurrentlyReading.map(
                       (book, idx) =>
                       <li key={idx}>
-                        <Book book={book} updateBookShelf={this.props.updateBookShelf}/>
+                        <Book book={book} updateBookShelf={this.updateBookShelf}/>
                       </li>
                     )}
                     </ol>
@@ -47,7 +55,7 @@ class ListBooks extends Component {
                       {arrayOfWantToRead.map(
                         (book, idx) =>
                         <li key={idx}>
-                          <Book book={book} updateBookShelf={this.props.updateBookShelf}/>
+                          <Book book={book} updateBookShelf={this.updateBookShelf}/>
                         </li>
                       )}
                     </ol>
@@ -60,7 +68,7 @@ class ListBooks extends Component {
                       {arrayOfRead.map(
                         (book, idx) =>
                         <li key={idx}>
-                          <Book book={book} updateBookShelf={this.props.updateBookShelf}/>
+                          <Book book={book} updateBookShelf={this.updateBookShelf}/>
                         </li>
                       )}
                     </ol>
