@@ -3,6 +3,8 @@ import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -18,7 +20,8 @@ class BooksApp extends React.Component {
        * pages, as well as provide a good URL they can bookmark and share.
        */
       showSearchPage: false,
-      books : []
+      books : [],
+      query : ''
     }
 
     this.updateBookShelf = this.updateBookShelf.bind(this)
@@ -47,7 +50,19 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf)
   }
 
+  updateQuery = (query) => {
+    this.setState({query: query})
+  }
+
   render() {
+
+    let showingSearchBook
+    if (this.state.query) {
+      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+      showingSearchBook = this.state.books.filter((book) => match.test(book.title) || match.test(book.title))
+    } else {
+      showingSearchBook = []
+    }
 
     return (
       <div className="app">
@@ -64,11 +79,17 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text"
+                  placeholder="Search by title or author"
+                  value = {this.state.query}
+                  onChange = {(event)=> this.updateQuery(event.target.value)}
+                />
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                <ListBooks books={showingSearchBook} updateBookShelf={this.updateBookShelf}/>
+              </ol>
             </div>
           </div>
         )}/>
