@@ -23,8 +23,6 @@ class ListBooks extends Component {
         let arrayOfWantToRead=[]
         let arrayOfRead=[]
 
-        debugger
-
         books.map(
           (book) =>
             book.shelf === "currentlyReading" ? arrayOfCurrentlyReading.push(book) :

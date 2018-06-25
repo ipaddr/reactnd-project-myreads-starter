@@ -21,7 +21,8 @@ class BooksApp extends React.Component {
        */
       showSearchPage: false,
       books : [],
-      query : ''
+      query : '',
+      showingSearchBook : []
     }
 
     this.updateBookShelf = this.updateBookShelf.bind(this)
@@ -51,18 +52,21 @@ class BooksApp extends React.Component {
   }
 
   updateQuery = (query) => {
-    this.setState({query: query})
+    if (query) {
+      BooksAPI.search(query).then((books) => {
+        if(books){
+          this.setState({query: query, showingSearchBook : books})
+        } else {
+          this.setState({query: query, showingSearchBook : []})
+        }
+      })
+    } else {
+      this.setState({query: query, showingSearchBook : []})
+    }
+
   }
 
   render() {
-
-    let showingSearchBook
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      showingSearchBook = this.state.books.filter((book) => match.test(book.title) || match.test(book.title))
-    } else {
-      showingSearchBook = []
-    }
 
     return (
       <div className="app">
@@ -88,7 +92,7 @@ class BooksApp extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                <ListBooks books={showingSearchBook} updateBookShelf={this.updateBookShelf}/>
+                <ListBooks books={this.state.showingSearchBook} updateBookShelf={this.updateBookShelf}/>
               </ol>
             </div>
           </div>
