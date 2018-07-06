@@ -54,7 +54,7 @@ class BooksApp extends React.Component {
   updateQuery = (query) => {
     if (query) {
       BooksAPI.search(query).then((books) => {
-        if(books){
+        if(!!books && books.length > 0){
           this.setState({query: query, showingSearchBook : books})
         } else {
           this.setState({query: query, showingSearchBook : []})

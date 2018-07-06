@@ -2,30 +2,28 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
 
-class ListBooks extends Component {
+class ListBooksSearch extends Component {
 
     constructor(props) {
       super(props)
-      this.books = this.props.books
       this.showingSearchBook = this.props.showingSearchBook
       this.updateBookShelf = this.props.updateBookShelf.bind(this)
     }
 
     static propTypes = {
-        books: PropTypes.array.isRequired,
         showingSearchBook: PropTypes.array.isRequired,
         updateBookShelf: PropTypes.func.isRequired
     }
 
     render(){
 
-        const { books, updateBookShelf } = this.props
+        const { showingSearchBook, updateBookShelf } = this.props
 
         let arrayOfCurrentlyReading=[]
         let arrayOfWantToRead=[]
         let arrayOfRead=[]
 
-        books.map(
+        showingSearchBook.map(
           (book) =>
             book.shelf === "currentlyReading" ? arrayOfCurrentlyReading.push(book) :
             book.shelf === "wantToRead" ? arrayOfWantToRead.push(book) : arrayOfRead.push(book)
@@ -82,4 +80,4 @@ class ListBooks extends Component {
 
 }
 
-export default ListBooks
+export default ListBooksSearch

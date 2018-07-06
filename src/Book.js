@@ -5,7 +5,7 @@ class Book extends Component {
 
     constructor(props) {
       super(props)
-
+      this.books = this.props.book
       this.updateBookShelf = this.props.updateBookShelf.bind(this)
     }
 
@@ -28,17 +28,17 @@ class Book extends Component {
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})` }}></div>
                 <div className="book-shelf-changer">
-                  <select onChange={(event) => this.updateBookShelf(book, event.target.value)}>
+                  <select onChange={(event) => this.updateBookShelf(this.props.book, event.target.value)}>
                     <option value="none" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none" selected="selected">None</option>
+                    <option value="currentlyReading" selected={this.props.book.shelf == "currentlyReading" ? "selected" : ""}>Currently Reading</option>
+                    <option value="wantToRead" selected={this.props.book.shelf == "wantToRead" ? "selected" : ""}>Want to Read</option>
+                    <option value="read" selected={this.props.book.shelf == "read" ? "selected" : ""}>Read</option>
+                    <option value="none" selected={this.props.book.shelf == undefined ? "selected" : ""}>None</option>
                   </select>
                 </div>
               </div>
-              <div className="book-title">{book.title}</div>
-              {book.authors.map(
+              <div className="book-title">{this.props.book.title}</div>
+              {this.props.book.authors.map(
                 (name, idx) => <div className="book-authors" key={idx}>{name}</div>
               )}
             </div>
