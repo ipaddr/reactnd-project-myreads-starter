@@ -6,6 +6,7 @@ class ListBooksSearch extends Component {
 
     constructor(props) {
       super(props)
+
       this.showingSearchBook = this.props.showingSearchBook
       this.updateBookShelf = this.props.updateBookShelf.bind(this)
     }
@@ -19,14 +20,17 @@ class ListBooksSearch extends Component {
 
         const { showingSearchBook, updateBookShelf } = this.props
 
-        let arrayOfCurrentlyReading=[]
-        let arrayOfWantToRead=[]
-        let arrayOfRead=[]
+        let arrayOfCurrentlyReading = []
+        let arrayOfWantToRead = []
+        let arrayOfRead = []
+        let arrayOfNone = []
 
         showingSearchBook.map(
           (book) =>
             book.shelf === "currentlyReading" ? arrayOfCurrentlyReading.push(book) :
-            book.shelf === "wantToRead" ? arrayOfWantToRead.push(book) : arrayOfRead.push(book)
+            book.shelf === "wantToRead" ? arrayOfWantToRead.push(book) :
+            book.shelf === "read" ? arrayOfRead.push(book) :
+            arrayOfNone.push(book)
         )
 
         return (
@@ -64,6 +68,19 @@ class ListBooksSearch extends Component {
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       {arrayOfRead.map(
+                        (book, idx) =>
+                        <li key={idx}>
+                          <Book book={book} updateBookShelf={this.updateBookShelf}/>
+                        </li>
+                      )}
+                    </ol>
+                  </div>
+                </div>
+                <div className="bookshelf">
+                  <h2 className="bookshelf-title">None</h2>
+                  <div className="bookshelf-books">
+                    <ol className="books-grid">
+                      {arrayOfNone.map(
                         (book, idx) =>
                         <li key={idx}>
                           <Book book={book} updateBookShelf={this.updateBookShelf}/>

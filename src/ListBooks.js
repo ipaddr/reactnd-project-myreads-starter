@@ -7,13 +7,11 @@ class ListBooks extends Component {
     constructor(props) {
       super(props)
       this.books = this.props.books
-      this.showingSearchBook = this.props.showingSearchBook
       this.updateBookShelf = this.props.updateBookShelf.bind(this)
     }
 
     static propTypes = {
         books: PropTypes.array.isRequired,
-        showingSearchBook: PropTypes.array.isRequired,
         updateBookShelf: PropTypes.func.isRequired
     }
 
@@ -28,7 +26,8 @@ class ListBooks extends Component {
         books.map(
           (book) =>
             book.shelf === "currentlyReading" ? arrayOfCurrentlyReading.push(book) :
-            book.shelf === "wantToRead" ? arrayOfWantToRead.push(book) : arrayOfRead.push(book)
+            book.shelf === "wantToRead" ? arrayOfWantToRead.push(book) :
+            arrayOfRead.push(book)
         )
 
         return (

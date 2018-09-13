@@ -1,6 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
+import ListBooksSearch from './ListBooksSearch'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
@@ -35,7 +36,6 @@ class BooksApp extends React.Component {
   }
 
   updateBookShelf = (book, shelf) => {
-    debugger
     this.setState((prevState)=>({
       books: prevState.books.map(function(element){
           if(element.title === book.title){
@@ -92,7 +92,7 @@ class BooksApp extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                <ListBooks books={this.state.showingSearchBook} updateBookShelf={this.updateBookShelf}/>
+                <ListBooksSearch showingSearchBook={this.state.showingSearchBook} updateBookShelf={this.updateBookShelf}/>
               </ol>
             </div>
           </div>
