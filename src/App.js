@@ -48,7 +48,12 @@ class BooksApp extends React.Component {
       }
       )
     }))
-    BooksAPI.update(book, shelf)
+    book.shelf = shelf
+    BooksAPI.update(book, shelf).then(() => {
+      this.setState({
+        books: this.state.books.filter((b) => b.id !== book.id).concat([book])
+      })
+    })
   }
 
   updateQuery = (query) => {
@@ -85,7 +90,6 @@ class BooksApp extends React.Component {
                 */}
                 <input type="text"
                   placeholder="Search by title or author"
-                  value = {this.state.query}
                   onChange = {(event)=> this.updateQuery(event.target.value)}
                 />
               </div>
