@@ -6,27 +6,33 @@ class ListBooksSearch extends Component {
 
     constructor(props) {
       super(props)
-
+      this.books = this.props.books
       this.showingSearchBook = this.props.showingSearchBook
       this.updateBookShelf = this.props.updateBookShelf.bind(this)
     }
 
     static propTypes = {
+        books: PropTypes.array.isRequired,
         showingSearchBook: PropTypes.array.isRequired,
         updateBookShelf: PropTypes.func.isRequired
     }
 
     render(){
 
-        const { showingSearchBook, updateBookShelf } = this.props
+        const { books, showingSearchBook, updateBookShelf } = this.props
 
         let arrayOfCurrentlyReading = []
         let arrayOfWantToRead = []
         let arrayOfRead = []
         let arrayOfNone = []
 
-        showingSearchBook.map(
+        this.showingSearchBook.map(
           (book) =>
+            book.shelf = "none"
+            this.books.map((bookFromParent) => {
+              book.id === bookFromParent.id ?
+              book.shelf = bookFromParent.shelf : book.shelf = ""
+            })
             book.shelf === "currentlyReading" ? arrayOfCurrentlyReading.push(book) :
             book.shelf === "wantToRead" ? arrayOfWantToRead.push(book) :
             book.shelf === "read" ? arrayOfRead.push(book) :

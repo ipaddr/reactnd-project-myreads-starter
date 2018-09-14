@@ -96,7 +96,7 @@ class BooksApp extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                <ListBooksSearch showingSearchBook={this.state.showingSearchBook} updateBookShelf={this.updateBookShelf}/>
+                <ListBooksSearch books={this.state.books} showingSearchBook={this.state.showingSearchBook} updateBookShelf={this.updateBookShelf}/>
               </ol>
             </div>
           </div>
