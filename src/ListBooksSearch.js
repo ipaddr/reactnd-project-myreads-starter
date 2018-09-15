@@ -26,18 +26,31 @@ class ListBooksSearch extends Component {
         let arrayOfRead = []
         let arrayOfNone = []
 
-        this.showingSearchBook.map(
-          (book) =>
-            book.shelf = "none"
-            this.books.map((bookFromParent) => {
-              book.id === bookFromParent.id ?
-              book.shelf = bookFromParent.shelf : book.shelf = ""
-            })
-            book.shelf === "currentlyReading" ? arrayOfCurrentlyReading.push(book) :
-            book.shelf === "wantToRead" ? arrayOfWantToRead.push(book) :
-            book.shelf === "read" ? arrayOfRead.push(book) :
+        let searchBooks = []
+
+
+          searchBooks = showingSearchBook.map(function(book){
+              let returnBook = book
+              books.forEach(function(bookFromParent){
+                if(book.id === bookFromParent.id){
+                  returnBook = bookFromParent
+                  return
+                }
+              })
+              return returnBook
+          })
+
+        searchBooks.forEach(function(book){
+          if(book.shelf === "currentlyReading"){
+            arrayOfCurrentlyReading.push(book)
+          } else if (book.shelf === "wantToRead"){
+            arrayOfWantToRead.push(book)
+          } else if (book.shelf === "read"){
+            arrayOfRead.push(book)
+          } else {
             arrayOfNone.push(book)
-        )
+          }
+        })
 
         return (
 
